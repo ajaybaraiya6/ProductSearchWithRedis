@@ -58,7 +58,9 @@
    In general, the system uses **Redis cache** for dynamic filters on the search page and for storing records on the result page.
 
 ## 4. Demonstration Videos
-You can find two videos demonstrating the project.
+You can find two videos demonstrating the project.  
+Video 1: https://github.com/ajaybaraiya6/ProductSearchWithRedis/blob/master/Videos/1%20Setup%20and%20run%20solution.mp4  
+Video 2: https://github.com/ajaybaraiya6/ProductSearchWithRedis/blob/master/Videos/2%20Running%20DEMO.mp4  
 
 ## 5. Final Deliverables and Remaining Tasks
 
