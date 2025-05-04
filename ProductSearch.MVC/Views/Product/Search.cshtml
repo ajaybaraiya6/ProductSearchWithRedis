@@ -1,0 +1,331 @@
+﻿<style>
+	.filter-row {
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		margin-bottom: 12px;
+	}
+
+	.filter-label {
+		font-weight: bold;
+		margin-right: 30px;
+		min-width: 100px;
+	}
+
+	.filter-group {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 6px;
+	}
+
+		.filter-group input[type="checkbox"] {
+			display: none;
+		}
+
+		.filter-group label {
+			padding: 6px 16px;
+			border-radius: 6px;
+			border: 1px solid #ccc;
+			cursor: pointer;
+			background-color: white;
+			color: black;
+			transition: all 0.2s;
+			white-space: nowrap;
+		}
+
+		.filter-group input[type="checkbox"]:checked + label {
+			background-color: #dc3545;
+			color: white;
+			border-color: #dc3545;
+		}
+
+	.margin_left_50 {
+		margin-left: 50px;
+	}
+
+	#searchBtn {
+		padding: 8px 24px;
+		background-color: #28a745;
+		color: white;
+		border: none;
+		border-radius: 6px;
+		cursor: pointer;
+	}
+</style>
+
+<form id="searchForm" method="post" asp-action="Search">
+	<!-- LAB -->
+	<div class="filter-row">
+		<span class="filter-label">Lab</span>
+		<div class="filter-group" data-filter-group="LabNames">
+			<input type="checkbox" id="lab_all" name="LabNames" value="" checked />
+			<label for="lab_all">ALL</label>
+			@foreach (var lab in ViewBag.FilterOptions.Labs as List<string>)
+			{
+				var id = $"lab_{lab.Replace(" ", "_")}";
+				<input type="checkbox" id="@id" name="LabNames" value="@lab" />
+				<label for="@id">@lab</label>
+			}
+		</div>
+	</div>
+
+	<!-- COLOR -->
+	<div class="filter-row">
+		<span class="filter-label">Color</span>
+		<div class="filter-group" data-filter-group="ColorNames">
+			<input type="checkbox" id="color_all" name="ColorNames" value="" checked />
+			<label for="color_all">ALL</label>
+			@foreach (var color in ViewBag.FilterOptions.Colors as List<string>)
+			{
+				var id = $"color_{color.Replace(" ", "_")}";
+				<input type="checkbox" id="@id" name="ColorNames" value="@color" />
+				<label for="@id">@color</label>
+			}
+		</div>
+	</div>
+
+	<!-- TYPES -->
+	<div class="filter-row">
+		<span class="filter-label">Types</span>
+		<div class="filter-group" data-filter-group="TypeNames">
+			@foreach (var type in ViewBag.FilterOptions.Types as List<string>)
+			{
+				var id = $"types_{type.Replace(" ", "_")}";
+				<input type="checkbox" id="@id" name="TypeNames" value="@type" />
+				<label for="@id">@type</label>
+			}
+		</div>
+	</div>
+
+	<!-- ELIGIBILITY -->
+	<div class="filter-row">
+		<span class="filter-label">Eligibility</span>
+		<div class="filter-group" data-filter-group="EligibilityNames">
+			@foreach (var item in ViewBag.FilterOptions.Eligibilities as List<string>)
+			{
+				var id = $"eligibility_{item.Replace(" ", "_")}";
+				<input type="checkbox" id="@id" name="EligibilityNames" value="@item" />
+				<label for="@id">@item</label>
+			}
+		</div>
+	</div>
+
+	<!-- CLARITY -->
+	<div class="filter-row">
+		<span class="filter-label">Clarity</span>
+		<div class="filter-group" data-filter-group="ClarityNames">
+			<input type="checkbox" id="clarity_all" name="ClarityNames" value="" checked />
+			<label for="clarity_all">ALL</label>
+			@foreach (var clarity in ViewBag.FilterOptions.Clarities as List<string>)
+			{
+				var id = $"clarity_{clarity.Replace(" ", "_")}";
+				<input type="checkbox" id="@id" name="ClarityNames" value="@clarity" />
+				<label for="@id">@clarity</label>
+			}
+		</div>
+	</div>
+
+	<!-- FINISHING (Cut, Polish, Symmetry) -->
+	<div class="filter-row">
+		<span class="filter-label">Finishing</span>
+		<div style="display:flex; gap:12px; flex-wrap: wrap;">
+			<div>
+				<label>Cut</label><br />
+				<div class="filter-group" data-filter-group="CutNames">
+					@foreach (var cut in ViewBag.FilterOptions.Cuts as List<string>)
+					{
+						var id = $"cut_{cut.Replace(" ", "_")}";
+						<input type="checkbox" id="@id" name="CutNames" value="@cut" />
+						<label for="@id">@cut</label>
+					}
+				</div>
+			</div>
+			<div class="margin_left_50">
+				<label>Polish</label><br />
+				<div class="filter-group" data-filter-group="PolishNames">
+					@foreach (var polish in ViewBag.FilterOptions.Polishes as List<string>)
+					{
+						var id = $"polish_{polish.Replace(" ", "_")}";
+						<input type="checkbox" id="@id" name="PolishNames" value="@polish" />
+						<label for="@id">@polish</label>
+					}
+				</div>
+			</div>
+			<div class="margin_left_50">
+				<label>Symmetry</label><br />
+				<div class="filter-group" data-filter-group="SymmetryNames">
+					@foreach (var symmetry in ViewBag.FilterOptions.Symmetries as List<string>)
+					{
+						var id = $"symmetry_{symmetry.Replace(" ", "_")}";
+						<input type="checkbox" id="@id" name="SymmetryNames" value="@symmetry" />
+						<label for="@id">@symmetry</label>
+					}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- FLUORESCENCE -->
+	<div class="filter-row">
+		<span class="filter-label">Fluorescence</span>
+		<div class="filter-group" data-filter-group="FluorescenceNames">
+			<input type="checkbox" id="fluorescence_all" name="FluorescenceNames" value="" checked />
+			<label for="fluorescence_all">ALL</label>
+			@foreach (var fluo in ViewBag.FilterOptions.Fluorescences as List<string>)
+			{
+				var id = $"fluorescence_{fluo.Replace(" ", "_")}";
+				<input type="checkbox" id="@id" name="FluorescenceNames" value="@fluo" />
+				<label for="@id">@fluo</label>
+			}
+		</div>
+	</div>
+
+	<!-- LOCATION -->
+	<div class="filter-row">
+		<span class="filter-label">Location</span>
+		<div class="filter-group" data-filter-group="LocationNames">
+			<input type="checkbox" id="location_all" name="LocationNames" value="" checked />
+			<label for="location_all">ALL</label>
+			@foreach (var loc in ViewBag.FilterOptions.Locations as List<string>)
+			{
+				var id = $"location_{loc.Replace(" ", "_")}";
+				<input type="checkbox" id="@id" name="LocationNames" value="@loc" />
+				<label for="@id">@loc</label>
+			}
+		</div>
+	</div>
+
+	<!-- PRICING -->
+	<div class="filter-row">
+		<span class="filter-label">Pricing</span>
+		<div style="display:flex; gap:12px; flex-wrap: wrap;">
+			<div>
+				<label>Discount %</label><br />
+				<input type="number" name="DiscountFrom" placeholder="From (%)" style="width:100px;" />
+				<input type="number" name="DiscountTo" placeholder="To (%)" style="width:100px;" />
+			</div>
+			<div>
+				<label>Price</label><br />
+				<input type="number" name="PriceFrom" placeholder="From ($)" style="width:100px;" />
+				<input type="number" name="PriceTo" placeholder="To ($)" style="width:100px;" />
+			</div>
+		</div>
+	</div>
+
+	<div class="filter-row">
+		<button id="searchBtn" type="submit">Search</button>
+	</div>
+</form>
+
+@section Scripts {
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			const MAX_DISCOUNT = 100;
+			const MAX_PRICE = 1000000;
+
+			// ===== 1️ Checkbox logic =====
+			document.querySelectorAll('.filter-group').forEach(function (group) {
+				const checkboxes = group.querySelectorAll('input[type=checkbox]');
+				const allCheckbox = [...checkboxes].find(cb => cb.value === '');
+
+				checkboxes.forEach(cb => {
+					cb.addEventListener('change', function () {
+						const checkedBoxes = [...checkboxes].filter(c => c.checked && c.value !== '');
+
+						if (cb.value === '') {
+							if (cb.checked) {
+								checkboxes.forEach(c => { if (c.value !== '') c.checked = false; });
+							}
+						} else {
+							if (cb.checked) {
+								allCheckbox && (allCheckbox.checked = false);
+							}
+
+							if (checkedBoxes.length === 0 && allCheckbox) {
+								allCheckbox.checked = true;
+							}
+						}
+					});
+				});
+			});
+
+			// ===== Numeric validation logic =====
+			const numericInputs = document.querySelectorAll('input[type=number]');
+
+			numericInputs.forEach(input => {
+				input.addEventListener('input', function (e) {
+					let value = e.target.value;
+					value = value.replace(/[^0-9.]/g, '');
+
+					const parts = value.split('.');
+					if (parts.length > 2) {
+						value = parts[0] + '.' + parts[1];
+					}
+
+					if (parts[1] && parts[1].length > 2) {
+						parts[1] = parts[1].substring(0, 2);
+						value = parts[0] + '.' + parts[1];
+					}
+
+					if (value.startsWith('-')) {
+						value = value.substring(1);
+					}
+
+					e.target.value = value;
+				});
+
+				input.addEventListener('blur', function (e) {
+					const value = parseFloat(e.target.value);
+					const placeholder = e.target.getAttribute('placeholder');
+
+					if (e.target.value === '') return;
+
+					if (isNaN(value)) {
+						alert('Please enter a valid number with max two decimals');
+						e.target.focus();
+						return;
+					}
+
+					if (placeholder && placeholder.includes('(%)')) { // Discount
+						if (value > MAX_DISCOUNT) {
+							alert('Discount % cannot be greater than 100');
+							e.target.value = MAX_DISCOUNT;
+						}
+					} else { // Price
+						if (value > MAX_PRICE) {
+							alert('Price cannot be greater than 1,000,000');
+							e.target.value = MAX_PRICE;
+						}
+					}
+
+					validateFromToPairs();
+				});
+			});
+
+			function validateFromToPairs() {
+				const discountFrom = document.querySelector('input[placeholder="From (%)"]');
+				const discountTo = document.querySelector('input[placeholder="To (%)"]');
+				comparePair(discountFrom, discountTo, 'Discount %');
+
+				const priceFrom = document.querySelector('input[placeholder="From ($)"]');
+				const priceTo = document.querySelector('input[placeholder="To ($)"]');
+				comparePair(priceFrom, priceTo, 'Price');
+			}
+
+			function comparePair(fromInput, toInput, label) {
+				const fromVal = parseFloat(fromInput.value);
+				const toVal = parseFloat(toInput.value);
+
+				if (!isNaN(fromVal) && !isNaN(toVal)) {
+					if (fromVal > toVal) {
+						alert(`${label}: "From" value cannot be greater than "To" value.`);
+						fromInput.value = '';
+						fromInput.focus();
+					}
+				}
+			}
+
+		});
+	</script>
+
+}
