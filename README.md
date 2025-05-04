@@ -1,72 +1,78 @@
 # Product Search Assignment
 
-# 1. OVERVIEW
+## 1. OVERVIEW
 
-# Project Stack: 
-Front-end: .Net Core MVC
-Back-end: .Net Web Api (Microservice)
-Database: SQLite
-Target Framework: .Net 8 
+### Project Stack:
+- **Front-end**: .Net Core MVC
+- **Back-end**: .Net Web Api (Microservice)
+- **Database**: SQLite
+- **Target Framework**: .Net 8 
 
-# Project Startup Sequence: 
-1st run: ProductService Microservice
-2nd run: ProductSearch.MVC
+### Project Startup Sequence:
+1. **1st run**: ProductService Microservice
+2. **2nd run**: ProductSearch.MVC
 
-# Project Architecture Patterns
-Front end: MVC Pattern 
-Backend/Microservice: Repository
+### Project Architecture Patterns:
+- **Front-end**: MVC Pattern
+- **Backend/Microservice**: Repository
 
-# Caching 
-Using redis
+### Caching:
+- Using Redis
 
-# Redis container
-Docker for running redis
+### Redis container:
+- Docker for running Redis
 
-# 2. HOW TO SET UP PROJECT 
-Clone repository into local
-Open solution and do clean solution and dotnet restore
-Build solution and it should build without any error.
-If asked for ssl certification please add it. 
-Make sure you set both the services to http for testing.
-Then set the solution as multiple startup project and keep the Product Service project first.
-Run the project. 
+## 2. HOW TO SET UP PROJECT
 
-# 3. Running and navigating.
-Make sure you find the ProductDb.sqlite file at ProductService\ProductService.Database folder with in project it contain 100 records for testing.	
-It is recommended to run the redis first 
-	- Follow this steps to run redis. 
-		- 1. Go to product service folder inside the project where docker-compose.yml
-		- 2. ensure you have docker installed on your machine
-		- 3. open cmd for that path and enter command
-			'docker-compose up -d'
-		- 4. It will pull redis and start it. 
-		- 5. We already have configured this in our file docker-compose.yml
-		- 6. Make sure it is running on our port 6379.
-Now once we run projects we will see the Swagger for our product service where you can find the XMl comments.
-MVC will run at the http port, should automatically come up in new tab, otherwise access it via http://localhost:5260/
-We will be on search page with filters and search button.
-Select desire filters and hit search and it will redirect on result page. 
-it has pagination and sorting both.
-In general it is using redis cache for the dynamic filters on search page and for our result page records. 
+1. Clone the repository into your local machine.
+2. Open the solution and perform the following:
+   - Clean the solution
+   - Run `dotnet restore`
+3. Build the solution, it should build without any errors.
+4. If asked for an SSL certificate, please add it.
+5. Make sure you set both services to HTTP for testing.
+6. Set the solution as **multiple startup projects** and keep the **ProductService** project first.
+7. Run the project.
 
-# 4. You can find out the two videos for the demonstration. 
+## 3. Running and Navigating
 
-# 5. Final deliverable points and remaining things. 
-	- Things completed: 
-		- Redis Caching implementation done
-		- Project functionality done
-	- Area of improvement 
-		- There is one price and discount filters require to preserve on sorting and pagination
-		
-	- Things remained due to limitted bandwidth of time
-		- order microservice and document to show how they will communicate
-		- unit test case and performance report. 
-		
-# 6. Note from me.
-	- I would like to here any feed back from you.  
-	- Thank you and looking forward. 
-	
+1. Ensure the `ProductDb.sqlite` file is located at `ProductService\ProductService.Database` folder within the project. It contains 100 records for testing.
+2. It is recommended to run Redis first.
+   - Follow these steps to run Redis:
+     1. Go to the `ProductService` folder inside the project where `docker-compose.yml` is located.
+     2. Ensure Docker is installed on your machine.
+     3. Open the command prompt at that path and enter the command:  
+        `docker-compose up -d`
+     4. Docker will pull Redis and start it.
+     5. The configuration for Redis is already set in the `docker-compose.yml` file.
+     6. Ensure Redis is running on port 6379.
+	 7. To stop Redis use `docker-compose down`
+3. After running the projects:
+   - You will see the Swagger UI for the ProductService, where you can find the XML comments.
+   - The MVC application will run at the HTTP port and should automatically open in a new tab. If not, access it via:  
+     `http://localhost:5260/`
+   - You will land on the search page with filters and a search button.
+   - Select the desired filters and hit search. It will redirect to the result page.
+   - The result page supports both **pagination** and **sorting**.
+   
+   In general, the system uses **Redis cache** for dynamic filters on the search page and for storing records on the result page.
 
+## 4. Demonstration Videos
+You can find two videos demonstrating the project.
 
+## 5. Final Deliverables and Remaining Tasks
 
+### Things Completed:
+- Redis caching implementation is done.
+- Project functionality is complete.
 
+### Areas of Improvement:
+- Price and discount filters need to preserve their state across sorting and pagination.
+
+### Things Remaining Due to Limited Bandwidth of Time:
+- Order microservice and documentation to show how they will communicate.
+- Unit test cases and performance report.
+
+## 6. Note from Me
+- I would love to hear any feedback from you.  
+- Thank you, and I look forward to hearing from you!
